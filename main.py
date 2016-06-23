@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup, SoupStrainer
 import urllib2
+import csv
+
+
 
 urlList = []
 
@@ -8,13 +11,23 @@ def geturlhtml(url):
 		if(url not in urlList):
 			print url
 			urlList.append(url)
+
+			resultFile = open("output.csv",'ab')
+			wr = csv.writer(resultFile, dialect='excel')
+			wr.writerow([url])
+
 			visitLink(url)
+
 	if(url[:20] == 'knodemy.wpengine.com'):
 		if(url not in urlList):
 			print url
 			urlList.append(url)
-			visitLink('http://' + url)
 
+			resultFile = open("output.csv",'ab')
+			wr = csv.writer(resultFile, dialect='excel')
+			wr.writerow([url])
+
+			visitLink('http://' + url)
 
 
 def visitLink(url):
